@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace url_shortener.Models
+namespace UrlShortener.Models
 {
     public partial class Item
     {

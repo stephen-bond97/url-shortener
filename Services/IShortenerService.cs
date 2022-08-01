@@ -1,4 +1,4 @@
-﻿namespace url_shortener.Services
+﻿namespace UrlShortener.Services
 {
 	public interface IShortenerService
 	{

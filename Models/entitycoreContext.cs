@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace url_shortener.Models
+namespace UrlShortener.Models
 {
     public partial class entitycoreContext : DbContext
     {
