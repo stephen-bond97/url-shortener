@@ -22,7 +22,7 @@ namespace UrlShortener.Services
 
 				var id = await this._repo.InsertShortUrl(url);
 
-				return converter.Encode(id);
+				return converter.Encode(id.ToString());
 			}
 
 			return null;			

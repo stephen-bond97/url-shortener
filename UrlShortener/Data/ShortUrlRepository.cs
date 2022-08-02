@@ -13,14 +13,14 @@ namespace UrlShortener.Data
 			this._context = new ShortenerContext();
 		}
 
-		public async Task<string> InsertShortUrl(string url)
+		public async Task<long> InsertShortUrl(string url)
 		{
 			var newUrl = new ShortUrl();
 			newUrl.Url = url;
 			this._context.ShortUrls.Add(newUrl);
 			await this._context.SaveChangesAsync();
 
-			return newUrl.Id.ToString();
+			return newUrl.Id;
 		}
 
 		public async Task<ShortUrl?> GetUrl(int id)
