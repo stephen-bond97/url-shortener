@@ -38,6 +38,7 @@ namespace UrlShortener.Services
 				var url = await this._repo.GetUrl(id);
 				return url?.Url;
 			}
+
 			return null;
 		}
 	}

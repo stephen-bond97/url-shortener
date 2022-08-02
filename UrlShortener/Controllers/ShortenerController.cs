@@ -32,6 +32,11 @@ namespace UrlShortener.Controllers
 		[HttpPost]
 		public async Task<IActionResult> CreateShortUrl(string url)
 		{
+			if (string.IsNullOrWhiteSpace(url))
+			{
+				return BadRequest();
+			}
+
 			var shortUrl = await this._shortenerService.InsertShortUrl(url);
 			if (shortUrl == null)
 			{
