@@ -1,39 +1,36 @@
 ﻿using System.Text;
+using UrlShortener.Data;
 using UrlShortener.Models;
 
 namespace UrlShortener.Services
 {
 	public class ShortenerService: IShortenerService
 	{
-		public async Task<string> GetShortUrl(string url)
-		{
-			string response = await ReadFromDB(url);
+		private readonly IShortUrlRepository _repo;
 
-			return response;
+		public ShortenerService(IShortUrlRepository repo)
+		{
+			this._repo = repo;
 		}
 
-		private async Task<string> ReadFromDB(string url)
+		public async Task<string> InsertShortUrl(string url)
 		{
-			using (var db = new entitycoreContext())
+			var id = await this._repo.InsertShortUrl(url);
+			var encodedid = Encoding.UTF8.GetBytes(id);
+
+			return Convert.ToBase64String(encodedid);
+		}
+
+		public async Task<string?> GetShortUrl(string encodedId)
+		{
+			byte[] idBytes = Convert.FromBase64String(encodedId);
+			string decodedString = Encoding.UTF8.GetString(idBytes);
+			if (int.TryParse(decodedString, out int id))
 			{
-				var newItem = new Item();
-				newItem.Name = url;
-				newItem.Description = $"This is a url {url}";
-				db.Items.Add(newItem);
-
-				var count = await db.SaveChangesAsync();
-
-				StringBuilder sb = new StringBuilder();
-
-				sb.AppendLine($"{count} records saved to database.");
-				sb.AppendLine("All items in the databse: ");
-				foreach (var item in db.Items)
-				{
-					sb.AppendLine($"{item.Name}, {item.Description}");
-				}
-
-				return sb.ToString();
+				var url = await this._repo.GetUrl(id);
+				return url?.Url;
 			}
+			return null;
 		}
 	}
 }

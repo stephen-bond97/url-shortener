@@ -19,9 +19,20 @@ namespace UrlShortener.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Get(string url)
+		public async Task<IActionResult> Get(string id)
 		{
-			var shortUrl = await this._shortenerService.GetShortUrl(url);
+			var getUrl = await this._shortenerService.GetShortUrl(id);
+			if (getUrl == null)
+			{
+				return NotFound();
+			}
+			return Ok(getUrl);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CreateShortUrl(string url)
+		{
+			var shortUrl = await this._shortenerService.InsertShortUrl(url);
 			return Ok(shortUrl);
 		}
 	}

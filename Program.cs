@@ -1,3 +1,4 @@
+using UrlShortener.Data;
 using UrlShortener.Services;
 
 var modelBuilder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ modelBuilder.Services.AddControllers();
 modelBuilder.Services.AddEndpointsApiExplorer();
 modelBuilder.Services.AddSwaggerGen();
 modelBuilder.Services.AddScoped<IShortenerService, ShortenerService>();
+modelBuilder.Services.AddScoped<IShortUrlRepository, ShortUrlRepository>();
 
 var app = modelBuilder.Build();
 
