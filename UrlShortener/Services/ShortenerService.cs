@@ -14,13 +14,18 @@ namespace UrlShortener.Services
 			this._repo = repo;
 		}
 
-		public async Task<string> InsertShortUrl(string url)
+		public async Task<string?> InsertShortUrl(string url)
 		{
-			var converter = new Base62Converter();
+			if (Uri.TryCreate(url, UriKind.Absolute, out _))
+			{
+				var converter = new Base62Converter();
 
-			var id = await this._repo.InsertShortUrl(url);
+				var id = await this._repo.InsertShortUrl(url);
 
-			return converter.Encode(id);
+				return converter.Encode(id);
+			}
+
+			return null;			
 		}
 
 		public async Task<string?> GetShortUrl(string encodedId)

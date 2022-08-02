@@ -24,7 +24,6 @@ namespace UrlShortener.Models
 
 				//optionsBuilder.UseNpgsql("Host=localhost;Database=entitycore;Username=postgres;Password=su_root");
 				optionsBuilder.UseNpgsql(connectionString);
-
 			}
 		}
 
