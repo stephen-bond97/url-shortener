@@ -1,16 +1,16 @@
 using UrlShortener.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+var modelBuilder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+modelBuilder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IShortenerService, ShortenerService>();
+modelBuilder.Services.AddEndpointsApiExplorer();
+modelBuilder.Services.AddSwaggerGen();
+modelBuilder.Services.AddScoped<IShortenerService, ShortenerService>();
 
-var app = builder.Build();
+var app = modelBuilder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

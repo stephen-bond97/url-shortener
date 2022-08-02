@@ -34,8 +34,8 @@ namespace UrlShortener.Models
                 entity.ToTable("item", "account");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Description).HasColumnName("description");
 
