@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Base62;
+using System.Text;
 using UrlShortener.Data;
 using UrlShortener.Models;
 
@@ -15,16 +16,18 @@ namespace UrlShortener.Services
 
 		public async Task<string> InsertShortUrl(string url)
 		{
-			var id = await this._repo.InsertShortUrl(url);
-			var encodedid = Encoding.UTF8.GetBytes(id);
+			var converter = new Base62Converter();
 
-			return Convert.ToBase64String(encodedid);
+			var id = await this._repo.InsertShortUrl(url);
+
+			return converter.Encode(id);
 		}
 
 		public async Task<string?> GetShortUrl(string encodedId)
 		{
-			byte[] idBytes = Convert.FromBase64String(encodedId);
-			string decodedString = Encoding.UTF8.GetString(idBytes);
+			var converter = new Base62Converter();
+
+			string decodedString = converter.Decode(encodedId);
 			if (int.TryParse(decodedString, out int id))
 			{
 				var url = await this._repo.GetUrl(id);

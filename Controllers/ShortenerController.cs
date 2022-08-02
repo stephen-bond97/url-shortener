@@ -18,7 +18,7 @@ namespace UrlShortener.Controllers
 			this._shortenerService = shortenerService;
 		}
 
-		[HttpGet]
+		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(string id)
 		{
 			var getUrl = await this._shortenerService.GetShortUrl(id);
