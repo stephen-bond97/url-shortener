@@ -12,7 +12,8 @@ modelBuilder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("https://stephen-bond97.github.io");
+                          policy.WithOrigins("https://stephen-bond97.github.io",
+                                             "http://localhost:4200/");
                       });
 });
 
