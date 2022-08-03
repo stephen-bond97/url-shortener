@@ -13,7 +13,10 @@ modelBuilder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("https://stephen-bond97.github.io",
-                                             "http://localhost:4200/");
+                                             "http://localhost:4200")
+                                                    .AllowAnyHeader()
+                                                    .AllowAnyMethod()
+                                                    .AllowAnyOrigin();
                       });
 });
 
